@@ -41,25 +41,25 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "July 14 2023",
+                        'July 14 2023',
                         style: TextStyle(
-                            fontFamily: "Syne",
+                            fontFamily: 'Syne',
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             color: Color(0xffAAAAAA)),
                       ),
                       Row(children: [
                         Text(
-                          "Hello, ",
+                          'Hello, ',
                           style: TextStyle(
-                              fontFamily: "Sora",
+                              fontFamily: 'Sora',
                               fontSize: 15,
                               fontWeight: FontWeight.w400),
                         ),
                         Text(
-                          "Yohannes",
+                          'Yohannes',
                           style: TextStyle(
-                              fontFamily: "Sora",
+                              fontFamily: 'Sora',
                               fontSize: 15,
                               fontWeight: FontWeight.w600),
                         ),
@@ -88,7 +88,7 @@ class HomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       const Text(
-                        "Available Products",
+                        'Available Products',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 24),
                       ),
@@ -109,7 +109,7 @@ class HomePage extends StatelessWidget {
                                 size: 20,
                               ),
                               onPressed: () {
-                                Navigator.pushNamed(context, "/search");
+                                Navigator.pushNamed(context, '/search');
                               },
                             ),
                           ))
@@ -145,7 +145,7 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.all(8.0),
-                                      child: Text("Derby Leather Shoes",
+                                      child: Text('Derby Leather Shoes',
                                           style: TextStyle(fontSize: 16)),
                                     ),
                                     Spacer(),

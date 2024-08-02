@@ -25,11 +25,11 @@ class _SearchProductState extends State<SearchProduct> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Search Product",
+              'Search Product',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                fontFamily: "Poppins",
+                fontFamily: 'Poppins',
                 color: Color(0xff3E3E3E),
               ),
             )
@@ -62,7 +62,7 @@ class _SearchProductState extends State<SearchProduct> {
                     showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context) {
-                        RangeValues _tempPriceRange = _priceRange;
+                        RangeValues tempPriceRange = _priceRange;
                         return StatefulBuilder(
                           builder:
                               (BuildContext context, StateSetter setState) {
@@ -80,11 +80,11 @@ class _SearchProductState extends State<SearchProduct> {
                                   ),
                                   const SizedBox(height: 16),
                                   const Text(
-                                    "Price",
+                                    'Price',
                                     style: TextStyle(fontSize: 16),
                                   ),
                                   RangeSlider(
-                                    values: _tempPriceRange,
+                                    values: tempPriceRange,
                                     min: 0,
                                     max: 100,
                                     divisions: 10,
@@ -92,7 +92,7 @@ class _SearchProductState extends State<SearchProduct> {
                                     inactiveColor: Colors.grey,
                                     onChanged: (RangeValues values) {
                                       setState(() {
-                                        _tempPriceRange = values;
+                                        tempPriceRange = values;
                                       });
                                     },
                                   ),
@@ -100,7 +100,7 @@ class _SearchProductState extends State<SearchProduct> {
                                   ElevatedButton(
                                     onPressed: () {
                                       setState(() {
-                                        _priceRange = _tempPriceRange;
+                                        _priceRange = tempPriceRange;
                                       });
                                       Navigator.of(context).pop();
                                     },
@@ -114,7 +114,7 @@ class _SearchProductState extends State<SearchProduct> {
                                       ),
                                     ),
                                     child: const Text(
-                                      "APPLY",
+                                      'APPLY',
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: Color(0xffFFFFFF)),
@@ -143,12 +143,12 @@ class _SearchProductState extends State<SearchProduct> {
                     child: Column(
                       children: [
                         Image.asset(
-                          "assets/shoes.jpg",
+                          'assets/shoes.jpg',
                           fit: BoxFit.cover,
                         ),
                         const SizedBox(height: 20),
                         const Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          padding: EdgeInsets.symmetric(horizontal: 8),
                           child: Column(
                             children: [
                               Row(
@@ -156,7 +156,7 @@ class _SearchProductState extends State<SearchProduct> {
                                   SizedBox(
                                     height: 60,
                                   ),
-                                  Text("Derby Leather",
+                                  Text('Derby Leather',
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w500)),

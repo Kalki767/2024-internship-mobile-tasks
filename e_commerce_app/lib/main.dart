@@ -1,8 +1,8 @@
-import 'package:e_commerce_app/add_page.dart';
-import 'package:e_commerce_app/details_page.dart';
-import 'package:e_commerce_app/home_page.dart';
-import 'package:e_commerce_app/search_product.dart';
 import 'package:flutter/material.dart';
+import 'add_page.dart';
+import 'details_page.dart';
+import 'home_page.dart';
+import 'search_product.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
@@ -15,7 +14,7 @@ class _AddPageState extends State<AddPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pop(context);
             // Handle back button press
@@ -25,11 +24,11 @@ class _AddPageState extends State<AddPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Add Product",
+              'Add Product',
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  fontFamily: "Poppins",
+                  fontFamily: 'Poppins',
                   color: Color(0xff3E3E3E)),
             )
           ],
@@ -47,7 +46,7 @@ class _AddPageState extends State<AddPage> {
                 child: Container(
                   height: 200,
                   decoration: BoxDecoration(
-                    color: Color(0xffF3F3F3),
+                    color: const Color(0xffF3F3F3),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: const Center(
@@ -74,7 +73,7 @@ class _AddPageState extends State<AddPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "name",
+                    'name',
                     style: TextStyle(color: Color(0xff3E3E3E)),
                   ),
                 ],
@@ -92,7 +91,7 @@ class _AddPageState extends State<AddPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "category",
+                    'category',
                     style: TextStyle(color: Color(0xff3E3E3E)),
                   ),
                 ],
@@ -108,7 +107,7 @@ class _AddPageState extends State<AddPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "price",
+                    'price',
                     style: TextStyle(color: Color(0xff3E3E3E)),
                   ),
                 ],
@@ -118,7 +117,7 @@ class _AddPageState extends State<AddPage> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   suffixIcon: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16.0),
                     child: Text(
                       '\$',
                       style: TextStyle(color: Colors.grey),
@@ -132,7 +131,7 @@ class _AddPageState extends State<AddPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "description",
+                    'description',
                     style: TextStyle(color: Color(0xff3E3E3E)),
                   ),
                 ],
@@ -148,15 +147,15 @@ class _AddPageState extends State<AddPage> {
               ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff3F51F3),
+                      backgroundColor: const Color(0xff3F51F3),
                       padding: const EdgeInsets.symmetric(horizontal: 32),
                       fixedSize: const Size(300, 30),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8))),
                   child: const Text(
-                    "ADD",
+                    'ADD',
                     style: TextStyle(
-                        fontFamily: "Poppins",
+                        fontFamily: 'Poppins',
                         fontSize: 14,
                         color: Colors.white),
                   )),
@@ -168,16 +167,16 @@ class _AddPageState extends State<AddPage> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(horizontal: 32),
-                      fixedSize: Size(300, 30),
-                      side: BorderSide(color: Colors.red),
+                      fixedSize: const Size(300, 30),
+                      side: const BorderSide(color: Colors.red),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8))),
-                  child: Text(
-                    "DELETE",
+                  child: const Text(
+                    'DELETE',
                     style: TextStyle(
-                        fontFamily: "Poppins", fontSize: 14, color: Colors.red),
+                        fontFamily: 'Poppins', fontSize: 14, color: Colors.red),
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               )
             ],
