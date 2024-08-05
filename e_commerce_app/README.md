@@ -1,16 +1,11 @@
-# e_commerce_app
+E-Commerce App
 
-A new Flutter project.
+This project includes a ProductModel class used for handling product data in an e-commerce application. The ProductModel class extends the Product entity, providing functionality to serialize and deserialize JSON data. This documentation covers the details of the ProductModel class and its associated tests.
 
-## Getting Started
+ProductModel Class
 
-This project is a starting point for a Flutter application.
+The ProductModel class represents a product in the e-commerce application. It includes properties such as productid, name, description, price, and imageUrl. The class provides methods to convert between ProductModel instances and JSON maps.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Tests
+The project includes tests to ensure the correctness of the ProductModel class. The tests are written using the flutter_test package.
+It also includes tests for the get product usecase.

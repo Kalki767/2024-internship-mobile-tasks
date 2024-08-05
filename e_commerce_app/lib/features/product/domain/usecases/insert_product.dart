@@ -1,15 +1,15 @@
 import 'package:dartz/dartz.dart';
 
-import '../../core/errors/failures.dart';
+import '../../../../core/errors/failures.dart';
 import '../entities/product.dart';
 import '../repositories/product_repository.dart';
 
-class InsertProduct {
+class InsertProductUseCase {
   final ProductRepository productRepository;
 
-  InsertProduct(this.productRepository);
+  InsertProductUseCase(this.productRepository);
 
-  Future<Either<Failure, void>> call(Product product) {
+  Future<Either<Failure, void>> execute(Product product) {
     return productRepository.insertProduct(product);
   }
 }
