@@ -8,7 +8,7 @@ class GetProductUseCase {
   final ProductRepository productRepository;
 
   GetProductUseCase(this.productRepository);
-  Future<Either<Failure, Product>> execute(int productid) {
+  Future<Either<Failure, Product>> execute(String productid) {
     return productRepository.getProduct(productid);
   }
 }

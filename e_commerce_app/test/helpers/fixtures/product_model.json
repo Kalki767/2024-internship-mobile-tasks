@@ -1,8 +1,8 @@
 {
-  "productid": 1,
+  "productid": "1",
   "name": "Shoe",
   "description": "Leather Shoe",
-  "price": 200.0,
+  "price": 200,
   "imageUrl": ""
   }
   

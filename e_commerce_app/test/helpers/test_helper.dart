@@ -1,7 +1,15 @@
+import 'package:e_commerce_app/features/product/data/data_sources/remote/remote_data_source.dart';
 import 'package:e_commerce_app/features/product/domain/repositories/product_repository.dart';
+import 'package:e_commerce_app/features/product/domain/usecases/get_product.dart';
+import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 
 @GenerateMocks(
-  [ProductRepository],
+  [
+    ProductRepository,
+    GetProductUseCase,
+    RemoteDataSource,
+  ],
+  customMocks: [MockSpec<http.Client>(as: #MockHttpClient)],
 )
 void main() {}

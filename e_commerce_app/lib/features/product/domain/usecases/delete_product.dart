@@ -8,7 +8,7 @@ class DeleteProductUseCase {
 
   DeleteProductUseCase(this.productRepository);
 
-  Future<Either<Failure, void>> execute(int productid) {
+  Future<Either<Failure, void>> execute(String productid) {
     return productRepository.deleteProduct(productid);
   }
 }

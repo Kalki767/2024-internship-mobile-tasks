@@ -16,13 +16,13 @@ void main() {
   });
 
   const productDetails = Product(
-    productid: 1,
+    productid: '1',
     name: 'shoe',
     description: 'leather shoe',
     price: 200,
     imageUrl: '',
   );
-  const productid = 1;
+  const productid = '1';
   test('should get product', () async {
     when(mockProductRepository.getProduct(productid))
         .thenAnswer((_) async => const Right(productDetails));

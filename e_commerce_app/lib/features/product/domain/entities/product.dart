@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 class Product extends Equatable {
-  final int productid;
+  final String productid;
   final String name;
   final String description;
-  final double price;
+  final int price;
   final String imageUrl;
   const Product(
       {required this.productid,
