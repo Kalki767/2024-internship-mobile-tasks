@@ -5,6 +5,7 @@ import 'package:e_commerce_app/features/product/domain/usecases/get_product.dart
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mockito/annotations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @GenerateMocks(
   [
@@ -13,6 +14,7 @@ import 'package:mockito/annotations.dart';
     RemoteDataSource,
     NetworkInfo,
     InternetConnectionChecker,
+    SharedPreferences,
   ],
   customMocks: [MockSpec<http.Client>(as: #MockHttpClient)],
 )
