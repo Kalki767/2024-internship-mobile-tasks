@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app/core/errors/exceptions.dart';
 import 'package:e_commerce_app/core/errors/failures.dart';
+import 'package:e_commerce_app/core/network/network_info.dart';
 import 'package:e_commerce_app/features/product/data/models/product_model.dart';
 import 'package:e_commerce_app/features/product/data/repositories/product_repository_impl.dart';
 import 'package:e_commerce_app/features/product/domain/entities/product.dart';
@@ -12,11 +13,13 @@ import '../../helpers/test_helper.mocks.dart';
 void main() {
   late ProductRepositoryImpl productRepositoryImpl;
   late MockRemoteDataSource mockRemoteDataSource;
+  late MockNetworkInfo mockNetworkInfo;
 
   setUp(() {
+    mockNetworkInfo = MockNetworkInfo();
     mockRemoteDataSource = MockRemoteDataSource();
-    productRepositoryImpl =
-        ProductRepositoryImpl(remoteDataSource: mockRemoteDataSource);
+    productRepositoryImpl = ProductRepositoryImpl(
+        remoteDataSource: mockRemoteDataSource, networkInfo: mockNetworkInfo);
   });
 
   const productmodel = ProductModel(
@@ -33,6 +36,7 @@ void main() {
       price: 200,
       imageUrl: '');
   const productid = '1';
+
   group('should get current product', () {
     test('should return product entity', () async {
       //arrange

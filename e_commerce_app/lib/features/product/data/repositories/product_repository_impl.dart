@@ -1,19 +1,21 @@
-import '../../../../core/errors/exceptions.dart';
-import '../../../../core/errors/failures.dart';
-import '../../domain/entities/product.dart';
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/errors/exceptions.dart';
+import '../../../../core/errors/failures.dart';
+import '../../../../core/network/network_info.dart';
+import '../../domain/entities/product.dart';
 import '../../domain/repositories/product_repository.dart';
 import '../data_sources/remote/remote_data_source.dart';
-import '../models/product_model.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
-  late RemoteDataSource remoteDataSource;
+  final RemoteDataSource remoteDataSource;
+  final NetworkInfo networkInfo;
 
-  ProductRepositoryImpl({required this.remoteDataSource});
+  ProductRepositoryImpl(
+      {required this.remoteDataSource, required this.networkInfo});
+
   @override
   Future<Either<Failure, void>> deleteProduct(String productid) {
-    // TODO: implement deleteProduct
     throw UnimplementedError();
   }
 
@@ -31,13 +33,11 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<Either<Failure, void>> insertProduct(Product product) {
-    // TODO: implement insertProduct
     throw UnimplementedError();
   }
 
   @override
   Future<Either<Failure, void>> updateProduct(Product product) {
-    // TODO: implement updateProduct
     throw UnimplementedError();
   }
 }

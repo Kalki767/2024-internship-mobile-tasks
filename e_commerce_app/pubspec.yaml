@@ -41,12 +41,12 @@ dependencies:
   get_it: ^7.2.0
   http: ^0.13.3
   rxdart: ^0.27.3
+  internet_connection_checker: ^1.0.0+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^5.0.15
-  mocktail: ^0.2.0
   bloc_test: ^9.0.2
   build_runner: ^2.1.2
   # The "flutter_lints" package below contains a set of recommended lints to
