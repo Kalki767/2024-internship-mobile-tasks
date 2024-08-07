@@ -12,7 +12,7 @@ abstract class RemoteDataSource {
     throw UnimplementedError();
   }
 
-  Future<Product> getProduct(String productid) {
+  Future<ProductModel> getProductById(String productid) {
     throw UnimplementedError();
   }
 
@@ -31,7 +31,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   RemoteDataSourceImpl({required this.client});
 
   @override
-  Future<ProductModel> getProduct(String productid) async {
+  Future<ProductModel> getProductById(String productid) async {
     final response =
         await client.get(Uri.parse(Urls.getProductbyId(productid)));
 

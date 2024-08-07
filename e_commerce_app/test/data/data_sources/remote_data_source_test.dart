@@ -23,13 +23,14 @@ void main() {
   group('get product data', () {
     test('should return 200 as status ok', () async {
       //arrange
+
       when(mockHttpClient.get(Uri.parse(Urls.getProductbyId(productid))))
           .thenAnswer((_) async => http.Response(
               readJson('helpers/fixtures/product_model.json'), 200));
 
       //act
 
-      final result = await remoteDataSourceImpl.getProduct(productid);
+      final result = await remoteDataSourceImpl.getProductById(productid);
 
       //assert
       expect(result, isA<ProductModel>());
@@ -41,7 +42,7 @@ void main() {
           .thenAnswer((_) async => http.Response('Not found', 404));
 
       //act
-      final result = remoteDataSourceImpl.getProduct(productid);
+      final result = remoteDataSourceImpl.getProductById(productid);
 
       //assert
       expect(result, throwsA(isA<ServerException>()));
