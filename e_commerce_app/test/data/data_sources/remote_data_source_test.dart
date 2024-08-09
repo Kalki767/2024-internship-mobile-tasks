@@ -18,7 +18,7 @@ void main() {
     remoteDataSourceImpl = RemoteDataSourceImpl(client: mockHttpClient);
   });
 
-  const productid = '1';
+  const productid = '6672776eb905525c145fe0bb';
 
   group('get product data', () {
     test('should return 200 as status ok', () async {

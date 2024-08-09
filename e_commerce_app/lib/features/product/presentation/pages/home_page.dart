@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/buttons.dart';
+import '../widgets/cards.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -102,15 +105,10 @@ class HomePage extends StatelessWidget {
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(6),
                             ),
-                            child: IconButton(
-                              icon: const Icon(
-                                CupertinoIcons.search,
-                                color: Colors.grey,
-                                size: 20,
-                              ),
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/search');
-                              },
+                            child: const Buttons(
+                              icons: CupertinoIcons.search,
+                              navigateto: '/search',
+                              colors: Colors.grey,
                             ),
                           ))
                     ],
@@ -126,68 +124,7 @@ class HomePage extends StatelessWidget {
                           onTap: () {
                             Navigator.pushNamed(context, '/details');
                           },
-                          child: Card(
-                            child: Column(
-                              children: [
-                                ClipRRect(
-                                    borderRadius: const BorderRadius.vertical(
-                                        top: Radius.circular(10)),
-                                    child: Image.asset(
-                                      'assets/shoes.jpg',
-                                      fit: BoxFit.cover,
-                                    )),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                const Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text('Derby Leather Shoes',
-                                          style: TextStyle(fontSize: 16)),
-                                    ),
-                                    Spacer(),
-                                    Text(
-                                      '\$120',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 16),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text("Men's Shoes",
-                                              style: TextStyle(fontSize: 12)),
-                                          Spacer(),
-                                          Icon(
-                                            Icons.star,
-                                            size: 14,
-                                            color: Colors.yellow,
-                                            weight: 4,
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            '(4.0)',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                                fontSize: 12),
-                                          ),
-                                        ]))
-                              ],
-                            ),
-                          ),
+                          child: const Cards(),
                         );
                       }))
             ],
