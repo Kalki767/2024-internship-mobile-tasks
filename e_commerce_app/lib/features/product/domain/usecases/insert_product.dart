@@ -9,7 +9,7 @@ class InsertProductUseCase {
 
   InsertProductUseCase(this.productRepository);
 
-  Future<Either<Failure, void>> execute(Product product) {
+  Future<Either<Failure, bool>> execute(Product product) {
     return productRepository.insertProduct(product);
   }
 }

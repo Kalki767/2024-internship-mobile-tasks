@@ -15,8 +15,15 @@ class ProductRepositoryImpl implements ProductRepository {
       {required this.remoteDataSource, required this.networkInfo});
 
   @override
-  Future<Either<Failure, void>> deleteProduct(String productid) {
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> deleteProduct(String productid) async {
+    try {
+      final result = await remoteDataSource.deleteProduct(productid);
+      return Right(result);
+    } on ServerException {
+      return const Left(ServerFailure('An error has occurred'));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    }
   }
 
   @override
@@ -32,12 +39,41 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, void>> insertProduct(Product product) {
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> insertProduct(Product product) async {
+    try {
+      final result = await remoteDataSource.insertProduct(product);
+      return Right(result);
+    } on ServerException {
+      return const Left(ServerFailure('An error has occurred'));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    }
   }
 
   @override
-  Future<Either<Failure, void>> updateProduct(Product product) {
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> updateProduct(
+      String productid, Product product) async {
+    try {
+      final result = await remoteDataSource.updateProduct(productid, product);
+      return Right(result);
+    } on ServerException {
+      return const Left(ServerFailure('An error has occurred'));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Product>>> getAllProduct() async {
+    // TODO: implement getAllProduct
+    try {
+      final result = await remoteDataSource.getAllProducts();
+      // Assuming result is a list of DTOs that need to be converted to entities
+      return Right(result.map((product) => product.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure('An error has occurred'));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    }
   }
 }

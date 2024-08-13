@@ -8,7 +8,7 @@ import '../../helpers/json_reader.dart';
 
 void main() {
   const productModel = ProductModel(
-      productid: '1',
+      productid: '6672776eb905525c145fe0bb',
       name: 'Shoe',
       description: 'Leather Shoe',
       price: 200,
@@ -28,7 +28,7 @@ void main() {
   test('should map tojson correctly', () async {
     final result = productModel.toJson();
     final expectedMap = {
-      'productid': '1',
+      'productid': '6672776eb905525c145fe0bb',
       'name': 'Shoe',
       'description': 'Leather Shoe',
       'price': 200,

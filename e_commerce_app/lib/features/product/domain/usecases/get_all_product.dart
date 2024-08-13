@@ -4,12 +4,11 @@ import '../../../../core/errors/failures.dart';
 import '../entities/product.dart';
 import '../repositories/product_repository.dart';
 
-class UpdateProductUseCase {
+class GetAllProductUseCase {
   final ProductRepository productRepository;
 
-  UpdateProductUseCase(this.productRepository);
-
-  Future<Either<Failure, bool>> execute(String productid, Product product) {
-    return productRepository.updateProduct(productid, product);
+  GetAllProductUseCase(this.productRepository);
+  Future<Either<Failure, List<Product>>> execute() {
+    return productRepository.getAllProduct();
   }
 }

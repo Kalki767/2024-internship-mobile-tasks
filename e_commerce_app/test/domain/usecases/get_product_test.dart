@@ -16,13 +16,13 @@ void main() {
   });
 
   const productDetails = Product(
-    productid: '1',
-    name: 'shoe',
-    description: 'leather shoe',
+    productid: '6672776eb905525c145fe0bb',
+    name: 'Shoe',
+    description: 'Leather Shoe',
     price: 200,
     imageUrl: '',
   );
-  const productid = '1';
+  const productid = '6672776eb905525c145fe0bb';
   test('should get product', () async {
     when(mockProductRepository.getProduct(productid))
         .thenAnswer((_) async => const Right(productDetails));

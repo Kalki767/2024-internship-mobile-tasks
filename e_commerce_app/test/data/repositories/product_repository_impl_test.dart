@@ -23,20 +23,40 @@ void main() {
   });
 
   const productmodel = ProductModel(
-      productid: '1',
-      name: 'shoe',
-      description: 'Leather shoe',
+      productid: '6672776eb905525c145fe0bb',
+      name: 'Shoe',
+      description: 'Leather Shoe',
       price: 200,
       imageUrl: '');
 
   const productEntity = Product(
-      productid: '1',
-      name: 'shoe',
-      description: 'Leather shoe',
+      productid: '6672776eb905525c145fe0bb',
+      name: 'Shoe',
+      description: 'Leather Shoe',
       price: 200,
       imageUrl: '');
-  const productid = '1';
+  const productid = '6672776eb905525c145fe0bb';
 
+  group("should get all products", () {
+    test("Should return product entity", () async {
+      // arrange
+      when(mockRemoteDataSource.getAllProducts())
+          .thenAnswer((_) async => [productmodel]);
+
+      //act
+      final call = await productRepositoryImpl.getAllProduct();
+      final result = call.getOrElse(() => []);
+
+      //assert
+
+      expect(
+        Right(ilist(result)),
+        equals(
+          Right(ilist([productEntity])),
+        ),
+      );
+    });
+  });
   group('should get current product', () {
     test('should return product entity', () async {
       //arrange
