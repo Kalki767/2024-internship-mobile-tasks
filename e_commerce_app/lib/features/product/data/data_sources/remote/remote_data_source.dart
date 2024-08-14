@@ -49,7 +49,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   @override
   Future<List<ProductModel>> getAllProducts() async {
     List<ProductModel> allProducts = [];
-    final response = await client.post(Uri.parse(Urls.baseUrl));
+    final response = await client.get(Uri.parse(Urls.baseUrl));
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
@@ -90,6 +90,18 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     };
     final response = await client.put(Uri.parse(Urls.getProductbyId(productid)),
         headers: mapper);
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<bool> deleteProduct(String productid) async {
+    final response = await client.delete(
+      Uri.parse(Urls.getProductbyId(productid)),
+    );
     if (response.statusCode == 200) {
       return true;
     } else {

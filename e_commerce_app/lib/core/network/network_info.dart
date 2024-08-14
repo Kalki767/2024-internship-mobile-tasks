@@ -6,7 +6,6 @@ abstract class NetworkInfo {
 }
 
 class NetworkInfoImpl implements NetworkInfo {
-  @override
   final InternetConnectionChecker connectionChecker;
 
   //Constructior of the class intialized with InternetConnection checker

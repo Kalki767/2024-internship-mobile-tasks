@@ -65,7 +65,6 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<Either<Failure, List<Product>>> getAllProduct() async {
-    // TODO: implement getAllProduct
     try {
       final result = await remoteDataSource.getAllProducts();
       // Assuming result is a list of DTOs that need to be converted to entities

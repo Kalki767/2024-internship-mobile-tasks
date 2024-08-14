@@ -27,6 +27,6 @@ void main() {
     when(mockProductRepository.getProduct(productid))
         .thenAnswer((_) async => const Right(productDetails));
 
-    final result = await (getProductRepository.execute(productid));
+    await (getProductRepository.execute(productid));
   });
 }
