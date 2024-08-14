@@ -8,16 +8,17 @@ import '../../domain/repositories/product_repository.dart';
 import '../data_sources/remote/remote_data_source.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
-  final RemoteDataSource remoteDataSource;
-  final NetworkInfo networkInfo;
+  final RemoteDataSource _remoteDataSource;
+  final NetworkInfo _networkInfo;
 
-  ProductRepositoryImpl(
-      {required this.remoteDataSource, required this.networkInfo});
+  ProductRepositoryImpl({required remoteDataSource, required networkInfo})
+      : _remoteDataSource = remoteDataSource,
+        _networkInfo = networkInfo;
 
   @override
   Future<Either<Failure, bool>> deleteProduct(String productid) async {
     try {
-      final result = await remoteDataSource.deleteProduct(productid);
+      final result = await _remoteDataSource.deleteProduct(productid);
       return Right(result);
     } on ServerException {
       return const Left(ServerFailure('An error has occurred'));
@@ -29,7 +30,7 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<Either<Failure, Product>> getProduct(String productid) async {
     try {
-      final result = await remoteDataSource.getProductById(productid);
+      final result = await _remoteDataSource.getProductById(productid);
       return Right(result.toEntity());
     } on ServerException {
       return const Left(ServerFailure('An error has occurred'));
@@ -41,7 +42,7 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<Either<Failure, bool>> insertProduct(Product product) async {
     try {
-      final result = await remoteDataSource.insertProduct(product);
+      final result = await _remoteDataSource.insertProduct(product);
       return Right(result);
     } on ServerException {
       return const Left(ServerFailure('An error has occurred'));
@@ -54,7 +55,7 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<Either<Failure, bool>> updateProduct(
       String productid, Product product) async {
     try {
-      final result = await remoteDataSource.updateProduct(productid, product);
+      final result = await _remoteDataSource.updateProduct(productid, product);
       return Right(result);
     } on ServerException {
       return const Left(ServerFailure('An error has occurred'));
@@ -66,7 +67,7 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<Either<Failure, List<Product>>> getAllProduct() async {
     try {
-      final result = await remoteDataSource.getAllProducts();
+      final result = await _remoteDataSource.getAllProducts();
       // Assuming result is a list of DTOs that need to be converted to entities
       return Right(result.map((product) => product.toEntity()).toList());
     } on ServerException {

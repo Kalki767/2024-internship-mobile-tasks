@@ -12,7 +12,8 @@ void main() {
 
   setUp(() {
     mockProductRepository = MockProductRepository();
-    getProductRepository = GetProductUseCase(mockProductRepository);
+    getProductRepository =
+        GetProductUseCase(productRepository: mockProductRepository);
   });
 
   const productDetails = Product(

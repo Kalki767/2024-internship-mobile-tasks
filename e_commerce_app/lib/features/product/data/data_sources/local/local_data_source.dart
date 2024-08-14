@@ -11,9 +11,10 @@ abstract class LocalDataSource {
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
-  final SharedPreferences sharedPreferences;
+  final SharedPreferences _sharedPreferences;
 
-  LocalDataSourceImpl({required this.sharedPreferences});
+  LocalDataSourceImpl({required sharedPreferences})
+      : _sharedPreferences = sharedPreferences;
 
   @override
   Future<void> cacheProduct() {
@@ -22,7 +23,7 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<ProductModel> getProduct() {
-    final jsonString = sharedPreferences.getString('cachedProduct');
+    final jsonString = _sharedPreferences.getString('cachedProduct');
 
     if (jsonString != null) {
       return Future.value(ProductModel.fromJson(json.decode(jsonString)));

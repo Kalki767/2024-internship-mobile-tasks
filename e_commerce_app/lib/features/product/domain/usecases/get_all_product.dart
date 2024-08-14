@@ -5,10 +5,11 @@ import '../entities/product.dart';
 import '../repositories/product_repository.dart';
 
 class GetAllProductUseCase {
-  final ProductRepository productRepository;
+  final ProductRepository _productRepository;
 
-  GetAllProductUseCase(this.productRepository);
+  GetAllProductUseCase({required ProductRepository productRepository})
+      : _productRepository = productRepository;
   Future<Either<Failure, List<Product>>> execute() {
-    return productRepository.getAllProduct();
+    return _productRepository.getAllProduct();
   }
 }

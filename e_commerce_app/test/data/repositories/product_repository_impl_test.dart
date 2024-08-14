@@ -36,8 +36,8 @@ void main() {
       imageUrl: '');
   const productid = '6672776eb905525c145fe0bb';
 
-  group("should get all products", () {
-    test("Should return product entity", () async {
+  group('should get all products', () {
+    test('Should return product entity', () async {
       // arrange
       when(mockRemoteDataSource.getAllProducts())
           .thenAnswer((_) async => [productmodel]);

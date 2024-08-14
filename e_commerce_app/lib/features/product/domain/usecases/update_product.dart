@@ -5,11 +5,12 @@ import '../entities/product.dart';
 import '../repositories/product_repository.dart';
 
 class UpdateProductUseCase {
-  final ProductRepository productRepository;
+  final ProductRepository _productRepository;
 
-  UpdateProductUseCase(this.productRepository);
+  UpdateProductUseCase({required ProductRepository productRepository})
+      : _productRepository = productRepository;
 
   Future<Either<Failure, bool>> execute(String productid, Product product) {
-    return productRepository.updateProduct(productid, product);
+    return _productRepository.updateProduct(productid, product);
   }
 }

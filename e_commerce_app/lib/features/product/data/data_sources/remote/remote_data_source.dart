@@ -30,14 +30,14 @@ abstract class RemoteDataSource {
 }
 
 class RemoteDataSourceImpl extends RemoteDataSource {
-  final http.Client client;
+  final http.Client _client;
 
-  RemoteDataSourceImpl({required this.client});
+  RemoteDataSourceImpl({required client}) : _client = client;
 
   @override
   Future<ProductModel> getProductById(String productid) async {
     final response =
-        await client.get(Uri.parse(Urls.getProductbyId(productid)));
+        await _client.get(Uri.parse(Urls.getProductbyId(productid)));
 
     if (response.statusCode == 200) {
       return ProductModel.fromJson(json.decode(response.body));
@@ -49,7 +49,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   @override
   Future<List<ProductModel>> getAllProducts() async {
     List<ProductModel> allProducts = [];
-    final response = await client.get(Uri.parse(Urls.baseUrl));
+    final response = await _client.get(Uri.parse(Urls.baseUrl));
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
@@ -71,7 +71,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     };
 
     final response =
-        await client.post(Uri.parse(Urls.baseUrl), headers: mapper);
+        await _client.post(Uri.parse(Urls.baseUrl), headers: mapper);
 
     if (response.statusCode == 200) {
       return true;
@@ -88,8 +88,8 @@ class RemoteDataSourceImpl extends RemoteDataSource {
       'description': product.description,
       'price': '${product.price}'
     };
-    final response = await client.put(Uri.parse(Urls.getProductbyId(productid)),
-        headers: mapper);
+    final response = await _client
+        .put(Uri.parse(Urls.getProductbyId(productid)), headers: mapper);
     if (response.statusCode == 200) {
       return true;
     } else {
@@ -99,7 +99,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
 
   @override
   Future<bool> deleteProduct(String productid) async {
-    final response = await client.delete(
+    final response = await _client.delete(
       Uri.parse(Urls.getProductbyId(productid)),
     );
     if (response.statusCode == 200) {

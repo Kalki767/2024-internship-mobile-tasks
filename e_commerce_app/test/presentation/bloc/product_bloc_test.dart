@@ -1,6 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
-import 'package:e_commerce_app/core/errors/exceptions.dart';
 import 'package:e_commerce_app/core/errors/failures.dart';
 import 'package:e_commerce_app/features/product/domain/entities/product.dart';
 import 'package:e_commerce_app/features/product/presentation/bloc/product_bloc.dart';
@@ -24,11 +23,11 @@ void main() {
     mockInsertProductUseCase = MockInsertProductUseCase();
     mockDeleteProductUseCase = MockDeleteProductUseCase();
     productBloc = ProductBloc(
-        mockGetProductUseCase,
-        mockGetAllProductUseCase,
-        mockDeleteProductUseCase,
-        mockInsertProductUseCase,
-        mockUpdateProductUseCase);
+        getProductUsecase: mockGetProductUseCase,
+        getAllProductsUsecase: mockGetAllProductUseCase,
+        deleteProductUsecase: mockDeleteProductUseCase,
+        insertProductUsecase: mockInsertProductUseCase,
+        updateProductUsecase: mockUpdateProductUseCase);
   });
 
   const productEntity = Product(

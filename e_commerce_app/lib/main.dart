@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+
+import 'features/injection_container.dart' as di;
 import 'features/product/presentation/pages/add_page.dart';
 import 'features/product/presentation/pages/details_page.dart';
 import 'features/product/presentation/pages/home_page.dart';
 import 'features/product/presentation/pages/search_product.dart';
 
-void main() {
+Future<void> main() async {
+  await di.init();
   runApp(const MyApp());
 }
 
