@@ -100,7 +100,7 @@ void main() {
       },
       act: (bloc) => bloc.add(const CreateProductEvent(productEntity)),
       wait: const Duration(milliseconds: 500),
-      expect: () => [LoadingState(), SuccesfulCreate(true)]);
+      expect: () => [LoadingState(), SuccesfulCreate()]);
 
   blocTest<ProductBloc, ProductBlocState>(
       'should emit an error when a product is not inserted',
@@ -123,7 +123,7 @@ void main() {
       },
       act: (bloc) => bloc.add(const DeleteProductEvent(productid)),
       wait: const Duration(milliseconds: 500),
-      expect: () => [LoadingState(), SuccessfulDelete(true)]);
+      expect: () => [LoadingState(), SuccessfulDelete()]);
 
   blocTest<ProductBloc, ProductBlocState>(
       'should emit an error when a product is not deleted',
@@ -147,7 +147,7 @@ void main() {
       act: (bloc) =>
           bloc.add(const UpdateProductEvent(productid, productEntity)),
       wait: const Duration(milliseconds: 500),
-      expect: () => [LoadingState(), SuccesfulUpdate(true)]);
+      expect: () => [LoadingState(), SuccesfulUpdate()]);
 
   blocTest<ProductBloc, ProductBlocState>(
       'should emit an error when a product is not updated',

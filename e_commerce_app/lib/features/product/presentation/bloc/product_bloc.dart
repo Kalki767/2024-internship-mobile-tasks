@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../../core/constants/constants.dart';
 import '../../domain/entities/product.dart';
 import '../../domain/usecases/delete_product.dart';
 import '../../domain/usecases/get_all_product.dart';
@@ -53,12 +54,21 @@ class ProductBloc extends Bloc<ProductBlocEvent, ProductBlocState> {
 
         result.fold((failure) {
           emit(const ErrorState(message: 'an error happens'));
-        }, (allProducts) {
-          emit(LoadedAllProductState(allProducts: allProducts));
+        }, (_allProducts) {
+          Urls.allProducts = _allProducts;
+          emit(LoadedAllProductState(allProducts: _allProducts));
         });
       },
       transformer: debounce(const Duration(milliseconds: 500)),
     );
+
+    on<FilterProductEvent>((event, emit) async {
+      final filteredProducts = Urls.allProducts.where((product) {
+        final searchQuery = event.text.toLowerCase();
+        return product.name.toLowerCase().contains(searchQuery);
+      }).toList();
+      emit(LoadedAllProductState(allProducts: filteredProducts));
+    });
 
     on<DeleteProductEvent>(
       (event, emit) async {
@@ -69,7 +79,7 @@ class ProductBloc extends Bloc<ProductBlocEvent, ProductBlocState> {
         result.fold((failure) {
           emit(const ErrorState(message: 'an error occured'));
         }, (value) {
-          emit(SuccessfulDelete(value));
+          emit(SuccessfulDelete());
         });
       },
       transformer: debounce(const Duration(milliseconds: 500)),
@@ -85,7 +95,7 @@ class ProductBloc extends Bloc<ProductBlocEvent, ProductBlocState> {
         result.fold((failure) {
           emit(const ErrorState(message: 'an error occured'));
         }, (value) {
-          emit(SuccesfulUpdate(value));
+          emit(SuccesfulUpdate());
         });
       },
       transformer: debounce(const Duration(milliseconds: 500)),
@@ -100,14 +110,14 @@ class ProductBloc extends Bloc<ProductBlocEvent, ProductBlocState> {
         result.fold((failure) {
           emit(const ErrorState(message: 'an error occured'));
         }, (value) {
-          emit(SuccesfulCreate(value));
+          emit(SuccesfulCreate());
         });
       },
       transformer: debounce(const Duration(milliseconds: 500)),
     );
   }
-}
 
-EventTransformer<T> debounce<T>(Duration duration) {
-  return (events, mapper) => events.debounceTime(duration).flatMap(mapper);
+  EventTransformer<T> debounce<T>(Duration duration) {
+    return (events, mapper) => events.debounceTime(duration).flatMap(mapper);
+  }
 }

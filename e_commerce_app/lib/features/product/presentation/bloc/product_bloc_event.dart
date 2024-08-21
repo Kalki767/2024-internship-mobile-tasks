@@ -33,3 +33,9 @@ class CreateProductEvent extends ProductBlocEvent {
 
   const CreateProductEvent(this.product);
 }
+
+class FilterProductEvent extends ProductBlocEvent {
+  final String text;
+
+  const FilterProductEvent({required this.text});
+}

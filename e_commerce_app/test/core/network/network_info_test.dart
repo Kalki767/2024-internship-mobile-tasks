@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mockito/mockito.dart';
 
-import '../../helpers/test_helper.mocks.dart';
+import '../../features/product/helpers/test_helper.mocks.dart';
 
 void main() {
   /*create instances of the class that we will mock and instance of 
@@ -13,7 +13,8 @@ void main() {
 
   setUp(() {
     mockInternetConnectionChecker = MockInternetConnectionChecker();
-    networkInfoImpl = NetworkInfoImpl(mockInternetConnectionChecker);
+    networkInfoImpl =
+        NetworkInfoImpl(connectionChecker: mockInternetConnectionChecker);
   });
 
   //test to check if we have succesfully implemented the network info class

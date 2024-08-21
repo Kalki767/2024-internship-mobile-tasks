@@ -6,12 +6,13 @@ abstract class NetworkInfo {
 }
 
 class NetworkInfoImpl implements NetworkInfo {
-  final InternetConnectionChecker connectionChecker;
+  final InternetConnectionChecker _connectionChecker;
 
   //Constructior of the class intialized with InternetConnection checker
-  NetworkInfoImpl(this.connectionChecker);
+  NetworkInfoImpl({required InternetConnectionChecker connectionChecker})
+      : _connectionChecker = connectionChecker;
 
   @override
-  Future<bool> get isConnected => connectionChecker
+  Future<bool> get isConnected => _connectionChecker
       .hasConnection; //The methond in the abstract which determines whether we are connected to netwrok or not
 }

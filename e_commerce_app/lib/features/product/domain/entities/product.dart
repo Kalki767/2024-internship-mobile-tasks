@@ -4,7 +4,7 @@ class Product extends Equatable {
   final String productid;
   final String name;
   final String description;
-  final int price;
+  final dynamic price;
   final String imageUrl;
   const Product(
       {required this.productid,

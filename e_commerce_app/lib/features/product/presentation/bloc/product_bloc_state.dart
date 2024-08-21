@@ -33,24 +33,21 @@ final class LoadedSingleProductState extends ProductBlocState {
 }
 
 final class SuccessfulDelete extends ProductBlocState {
-  final bool deleted;
-  SuccessfulDelete(this.deleted);
+  SuccessfulDelete();
   @override
-  List<Object> get props => [deleted];
+  List<Object> get props => [];
 }
 
 final class SuccesfulUpdate extends ProductBlocState {
-  final bool updated;
-  SuccesfulUpdate(this.updated);
+  SuccesfulUpdate();
   @override
-  List<Object> get props => [updated];
+  List<Object> get props => [];
 }
 
 final class SuccesfulCreate extends ProductBlocState {
-  final bool created;
-  SuccesfulCreate(this.created);
+  SuccesfulCreate();
   @override
-  List<Object> get props => [created];
+  List<Object> get props => [];
 }
 
 final class ErrorState extends ProductBlocState {

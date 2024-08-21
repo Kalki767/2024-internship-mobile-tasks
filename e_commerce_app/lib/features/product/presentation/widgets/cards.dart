@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 import 'custom_text.dart';
 
 class Cards extends StatelessWidget {
+  final String imageUrl, name;
+  final dynamic price;
+
   const Cards({
     super.key,
+    required this.imageUrl,
+    required this.name,
+    required this.price,
   });
 
   @override
@@ -15,22 +21,22 @@ class Cards extends StatelessWidget {
           ClipRRect(
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(10)),
-              child: Image.asset(
-                'assets/shoes.jpg',
+              child: Image.network(
+                imageUrl,
                 fit: BoxFit.cover,
               )),
           const SizedBox(
             height: 10,
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomText(text: 'Derby Leather Shoes'),
+                CustomText(text: name),
                 Spacer(),
                 CustomText(
-                  text: '\$120',
+                  text: '\$${price}',
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                 ),

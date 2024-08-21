@@ -11,7 +11,9 @@ class ProductRepositoryImpl implements ProductRepository {
   final RemoteDataSource _remoteDataSource;
   final NetworkInfo _networkInfo;
 
-  ProductRepositoryImpl({required remoteDataSource, required networkInfo})
+  ProductRepositoryImpl(
+      {required RemoteDataSource remoteDataSource,
+      required NetworkInfo networkInfo})
       : _remoteDataSource = remoteDataSource,
         _networkInfo = networkInfo;
 

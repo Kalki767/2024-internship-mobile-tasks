@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../domain/entities/product.dart';
+import '../bloc/product_bloc.dart';
 
 class DetailsPage extends StatefulWidget {
-  const DetailsPage({super.key});
+  DetailsPage({super.key});
 
   @override
-  State<DetailsPage> createState() => _LoginPageState();
+  State<DetailsPage> createState() => DetailsPageState();
 }
 
-class _LoginPageState extends State<DetailsPage> {
+class DetailsPageState extends State<DetailsPage> {
   int selected = 0;
+
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Product;
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -22,8 +28,8 @@ class _LoginPageState extends State<DetailsPage> {
               ClipRRect(
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(10)),
-                child: Image.asset(
-                  'assets/shoes.jpg',
+                child: Image.network(
+                  args.imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -34,6 +40,7 @@ class _LoginPageState extends State<DetailsPage> {
                     Icons.arrow_back_ios_new,
                   ),
                   onPressed: () {
+                    context.read<ProductBloc>().add(LoadAllProductEvent());
                     Navigator.of(context).pop();
                   },
                 ),
@@ -67,20 +74,20 @@ class _LoginPageState extends State<DetailsPage> {
                               fontWeight: FontWeight.normal, fontSize: 14),
                         ),
                       ]),
-                  const Row(
+                  Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 60,
                       ),
-                      Text('Derby Leather ',
-                          style: TextStyle(
+                      Text(args.name,
+                          style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Poppins')),
-                      Spacer(),
+                      const Spacer(),
                       Text(
-                        '\$120',
-                        style: TextStyle(
+                        '\$${args.price}',
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 14),
                       ),
                     ],
@@ -140,9 +147,8 @@ class _LoginPageState extends State<DetailsPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                      'A derby leather shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp (the upper part of the shoe). This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.',
-                      style: TextStyle(
+                  Text(args.description,
+                      style: const TextStyle(
                           fontSize: 14,
                           color: Color(0xff666666),
                           fontFamily: 'Poppins',
@@ -152,37 +158,69 @@ class _LoginPageState extends State<DetailsPage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(120, 50),
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  side: const BorderSide(color: Colors.red))),
-                          clipBehavior: Clip.antiAlias,
-                          onPressed: () {},
-                          child: const Text(
-                            'Delete',
-                            style: TextStyle(color: Colors.red),
-                          ),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(120, 50),
-                              backgroundColor: const Color(0xff3F51F3),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0))),
-                          clipBehavior: Clip.antiAlias,
-                          onPressed: () {},
-                          child: const Text(
-                            'Update',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        )
-                      ],
+                    child: BlocConsumer<ProductBloc, ProductBlocState>(
+                      builder: (context, state) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(120, 50),
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      side:
+                                          const BorderSide(color: Colors.red))),
+                              clipBehavior: Clip.antiAlias,
+                              onPressed: () {
+                                final productBloc =
+                                    BlocProvider.of<ProductBloc>(context);
+
+                                productBloc
+                                    .add(DeleteProductEvent(args.productid));
+                              },
+                              child: const Text(
+                                'Delete',
+                                style: TextStyle(color: Colors.red),
+                              ),
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(120, 50),
+                                  backgroundColor: const Color(0xff3F51F3),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(8.0))),
+                              clipBehavior: Clip.antiAlias,
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/update_page',
+                                    arguments: args.productid);
+                              },
+                              child: const Text(
+                                'Update',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                      listener: (BuildContext context, ProductBlocState state) {
+                        if (state is LoadingState) {
+                          const CircularProgressIndicator();
+                        }
+                        if (state is SuccessfulDelete) {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text(
+                                  'You have succesfully deleted your product')));
+                          context
+                              .read<ProductBloc>()
+                              .add(LoadAllProductEvent());
+                          Navigator.pop(context);
+                        } else if (state is ErrorState) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(state.message)));
+                        }
+                      },
                     ),
                   ),
                   const SizedBox(

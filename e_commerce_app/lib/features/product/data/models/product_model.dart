@@ -4,7 +4,7 @@ class ProductModel extends Product {
   final String productid;
   final String name;
   final String description;
-  final int price;
+  final dynamic price;
   final String imageUrl;
 
   const ProductModel(
@@ -21,7 +21,7 @@ class ProductModel extends Product {
             imageUrl: imageUrl);
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-        productid: json['productid'],
+        productid: json['id'],
         name: json['name'],
         description: json['description'],
         price: json['price'],
@@ -29,7 +29,7 @@ class ProductModel extends Product {
       );
 
   Map<String, dynamic> toJson() => {
-        'productid': productid,
+        'id': productid,
         'name': name,
         'description': description,
         'price': price,

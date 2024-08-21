@@ -13,7 +13,7 @@ abstract class LocalDataSource {
 class LocalDataSourceImpl implements LocalDataSource {
   final SharedPreferences _sharedPreferences;
 
-  LocalDataSourceImpl({required sharedPreferences})
+  LocalDataSourceImpl({required SharedPreferences sharedPreferences})
       : _sharedPreferences = sharedPreferences;
 
   @override
