@@ -19,8 +19,8 @@ class _SplashPageState extends State<SplashPage> {
 
   void startTimer() {
     // Delay of 3 seconds before navigating to the login page
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushNamed(context, '/login');
+    Future.delayed(const Duration(seconds: 5), () {
+      Navigator.pushNamed(context, '/signup_page');
     });
   }
 

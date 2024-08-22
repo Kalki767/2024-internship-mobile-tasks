@@ -35,9 +35,9 @@ class UserRemoteDataSourceImpl extends UserRemoteDataSource {
 
       // Decode the response to get the JSON object
       final data = json.decode(response.body);
-
+      print(response.body);
       String accessToken = data['data']['access_token'];
-
+      print(accessToken);
       return accessToken;
     } else {
       throw ServerException();
@@ -46,18 +46,33 @@ class UserRemoteDataSourceImpl extends UserRemoteDataSource {
 
   @override
   Future<bool> signup(String name, String email, String password) async {
+    if (name.isEmpty || name.length < 3) {
+      throw Exception("Name must be at least 3 characters long");
+    }
+    if (!RegExp(r"^[^@\s]+@[^@\s]+\.[^@\s]+$").hasMatch(email)) {
+      throw Exception("Email is not valid");
+    }
+    if (password.isEmpty || password.length < 6) {
+      throw Exception("Password must be at least 6 characters long");
+    }
+
     Map<String, dynamic> mapper = {
       'name': name,
       'email': email,
       'password': password
     };
 
-    final encoded = jsonEncode(mapper);
-    final response =
-        await _client.post(Uri.parse(Urls.register()), body: encoded);
+    final encoded = json.encode(mapper);
+    final response = await _client.post(
+      Uri.parse(Urls.register()),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: encoded,
+    );
 
+    print(response.body);
     if (response.statusCode == 201) {
-      print(await response.body);
       return true;
     } else {
       print(response.reasonPhrase);

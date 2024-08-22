@@ -251,35 +251,58 @@ class MockRemoteDataSource extends _i1.Mock implements _i11.RemoteDataSource {
   }
 
   @override
-  _i7.Future<bool> deleteProduct(String? productid) => (super.noSuchMethod(
+  _i7.Future<bool> deleteProduct(
+    String? productid,
+    String? token,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
           #deleteProduct,
-          [productid],
+          [
+            productid,
+            token,
+          ],
         ),
         returnValue: _i7.Future<bool>.value(false),
       ) as _i7.Future<bool>);
 
   @override
-  _i7.Future<_i3.ProductModel> getProductById(String? productid) =>
+  _i7.Future<_i3.ProductModel> getProductById(
+    String? productid,
+    String? token,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getProductById,
-          [productid],
+          [
+            productid,
+            token,
+          ],
         ),
         returnValue: _i7.Future<_i3.ProductModel>.value(_FakeProductModel_1(
           this,
           Invocation.method(
             #getProductById,
-            [productid],
+            [
+              productid,
+              token,
+            ],
           ),
         )),
       ) as _i7.Future<_i3.ProductModel>);
 
   @override
-  _i7.Future<bool> insertProduct(_i9.Product? product) => (super.noSuchMethod(
+  _i7.Future<bool> insertProduct(
+    _i9.Product? product,
+    String? token,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
           #insertProduct,
-          [product],
+          [
+            product,
+            token,
+          ],
         ),
         returnValue: _i7.Future<bool>.value(false),
       ) as _i7.Future<bool>);
@@ -288,6 +311,7 @@ class MockRemoteDataSource extends _i1.Mock implements _i11.RemoteDataSource {
   _i7.Future<bool> updateProduct(
     String? productid,
     _i9.Product? product,
+    String? token,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -295,16 +319,18 @@ class MockRemoteDataSource extends _i1.Mock implements _i11.RemoteDataSource {
           [
             productid,
             product,
+            token,
           ],
         ),
         returnValue: _i7.Future<bool>.value(false),
       ) as _i7.Future<bool>);
 
   @override
-  _i7.Future<List<_i3.ProductModel>> getAllProducts() => (super.noSuchMethod(
+  _i7.Future<List<_i3.ProductModel>> getAllProducts(String? token) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getAllProducts,
-          [],
+          [token],
         ),
         returnValue:
             _i7.Future<List<_i3.ProductModel>>.value(<_i3.ProductModel>[]),

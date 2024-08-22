@@ -211,7 +211,7 @@ class _AddPageState extends State<AddPage> {
                   },
                   listener: (BuildContext context, ProductBlocState state) {
                     if (state is LoadingState) {
-                      const CircularProgressIndicator();
+                      const Center(child: CircularProgressIndicator());
                     } else if (state is SuccesfulCreate) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content:

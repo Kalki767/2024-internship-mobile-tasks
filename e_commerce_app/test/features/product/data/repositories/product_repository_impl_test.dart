@@ -7,18 +7,23 @@ import 'package:e_commerce_app/features/product/domain/entities/product.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../user/helpers/test_helper.mocks.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late ProductRepositoryImpl productRepositoryImpl;
   late MockRemoteDataSource mockRemoteDataSource;
   late MockNetworkInfo mockNetworkInfo;
+  late MockUserLocalDataSource mockUserLocalDataSource;
 
   setUp(() {
+    mockUserLocalDataSource = MockUserLocalDataSource();
     mockNetworkInfo = MockNetworkInfo();
     mockRemoteDataSource = MockRemoteDataSource();
     productRepositoryImpl = ProductRepositoryImpl(
-        remoteDataSource: mockRemoteDataSource, networkInfo: mockNetworkInfo);
+        remoteDataSource: mockRemoteDataSource,
+        networkInfo: mockNetworkInfo,
+        userLocalDataSource: mockUserLocalDataSource);
   });
 
   const productmodel = ProductModel(
@@ -35,11 +40,14 @@ void main() {
       price: 200,
       imageUrl: '');
   const productid = '6672776eb905525c145fe0bb';
+  const token = 'mock_token'; // Example token
 
   group('should get all products', () {
     test('Should return product entity', () async {
       // arrange
-      when(mockRemoteDataSource.getAllProducts())
+      when(mockUserLocalDataSource.getAcessToken())
+          .thenAnswer((_) async => token);
+      when(mockRemoteDataSource.getAllProducts(token))
           .thenAnswer((_) async => [productmodel]);
 
       //act
@@ -47,7 +55,6 @@ void main() {
       final result = call.getOrElse(() => []);
 
       //assert
-
       expect(
         Right(ilist(result)),
         equals(
@@ -56,19 +63,19 @@ void main() {
       );
     });
   });
+
   group('should get current product', () {
     test('should return product entity', () async {
       //arrange
-
-      when(mockRemoteDataSource.getProductById(productid))
+      when(mockUserLocalDataSource.getAcessToken())
+          .thenAnswer((_) async => token);
+      when(mockRemoteDataSource.getProductById(productid, token))
           .thenAnswer((realInvocation) async => productmodel);
 
       //act
-
       final result = await productRepositoryImpl.getProduct(productid);
 
       //assert
-
       expect(result, equals(const Right(productEntity)));
     });
 
@@ -76,7 +83,9 @@ void main() {
       'should return server failure when a call to data source is unsuccessful',
       () async {
         // arrange
-        when(mockRemoteDataSource.getProductById(productid))
+        when(mockUserLocalDataSource.getAcessToken())
+            .thenAnswer((_) async => token);
+        when(mockRemoteDataSource.getProductById(productid, token))
             .thenThrow(ServerException());
 
         // act
@@ -92,7 +101,9 @@ void main() {
       'should return connection failure when the device has no internet',
       () async {
         // arrange
-        when(mockRemoteDataSource.getProductById(productid))
+        when(mockUserLocalDataSource.getAcessToken())
+            .thenAnswer((_) async => token);
+        when(mockRemoteDataSource.getProductById(productid, token))
             .thenThrow(SocketException());
 
         // act

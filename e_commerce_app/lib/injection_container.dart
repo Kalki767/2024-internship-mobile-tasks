@@ -55,8 +55,8 @@ Future<void> init() async {
   sl.registerFactory(() => SignupUsecase(signupRepository: sl()));
   sl.registerFactory(() => GetMeUsecase(userRepository: sl()));
   //repository
-  sl.registerLazySingleton<ProductRepository>(
-      () => ProductRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<ProductRepository>(() => ProductRepositoryImpl(
+      remoteDataSource: sl(), networkInfo: sl(), userLocalDataSource: sl()));
 
   sl.registerLazySingleton<UserRepository>(
       () => UserRepositoryImpl(remoteDataSource: sl(), localDataSource: sl()));

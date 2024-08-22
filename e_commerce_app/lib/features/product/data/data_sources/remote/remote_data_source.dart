@@ -9,23 +9,23 @@ import '../../../domain/entities/product.dart';
 import '../../models/product_model.dart';
 
 abstract class RemoteDataSource {
-  Future<bool> deleteProduct(String productid) {
+  Future<bool> deleteProduct(String productid, String token) {
     throw UnimplementedError();
   }
 
-  Future<ProductModel> getProductById(String productid) {
+  Future<ProductModel> getProductById(String productid, String token) {
     throw UnimplementedError();
   }
 
-  Future<bool> insertProduct(Product product) {
+  Future<bool> insertProduct(Product product, String token) {
     throw UnimplementedError();
   }
 
-  Future<bool> updateProduct(String productid, Product product) {
+  Future<bool> updateProduct(String productid, Product product, String token) {
     throw UnimplementedError();
   }
 
-  Future<List<ProductModel>> getAllProducts() {
+  Future<List<ProductModel>> getAllProducts(String token) {
     throw UnimplementedError();
   }
 }
@@ -36,9 +36,11 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   RemoteDataSourceImpl({required http.Client client}) : _client = client;
 
   @override
-  Future<ProductModel> getProductById(String productid) async {
+  Future<ProductModel> getProductById(String productid, String token) async {
     final response =
-        await _client.get(Uri.parse(Urls.getProductbyId(productid)));
+        await _client.get(Uri.parse(Urls.getProductbyId(productid)), headers: {
+      'Authorization': 'Bearer $token',
+    });
 
     if (response.statusCode == 200) {
       return ProductModel.fromJson(json.decode(response.body));
@@ -48,9 +50,10 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   }
 
   @override
-  Future<List<ProductModel>> getAllProducts() async {
+  Future<List<ProductModel>> getAllProducts(String token) async {
     List<ProductModel> allProducts = [];
-    final response = await _client.get(Uri.parse(Urls.baseUrl));
+    final response = await _client.get(Uri.parse(Urls.baseUrl),
+        headers: {'Authorization': 'Bearer $token'});
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
@@ -65,8 +68,9 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   }
 
   @override
-  Future<bool> insertProduct(Product product) async {
+  Future<bool> insertProduct(Product product, String token) async {
     var request = http.MultipartRequest('POST', Uri.parse(Urls.baseUrl));
+    request.headers.addAll({'Authorization': 'Bearer $token'});
     request.fields.addAll({
       'name': product.name,
       'description': product.description,
@@ -88,41 +92,42 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   }
 
   @override
-  Future<bool> updateProduct(String productid, Product product) async {
+  Future<bool> updateProduct(
+      String productid, Product product, String token) async {
     final Map<String, dynamic> mapper = {
       'name': product.name,
       'description': product.description,
       'price': int.tryParse(product.price),
     };
 
-    var headers = {'Content-Type': 'application/json'};
+    final encoded = json.encode(mapper);
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
     var request =
         http.Request('PUT', Uri.parse(Urls.getProductbyId(productid)));
-
-    final encoded = json.encode(mapper);
     request.body = encoded;
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
       return true;
     } else {
-      print(response.reasonPhrase);
-      throw ServerException();
+      return false;
     }
   }
 
   @override
-  Future<bool> deleteProduct(String productid) async {
-    var request =
-        http.Request('DELETE', Uri.parse(Urls.getProductbyId(productid)));
-
-    http.StreamedResponse response = await request.send();
+  Future<bool> deleteProduct(String productid, String token) async {
+    final response = await _client.delete(
+        Uri.parse(Urls.getProductbyId(productid)),
+        headers: {'Authorization': 'Bearer $token'});
 
     if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
+      print(await response.body);
       return true;
     } else {
       print(response.reasonPhrase);

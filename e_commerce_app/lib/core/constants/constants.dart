@@ -2,7 +2,7 @@ import '../../features/product/domain/entities/product.dart';
 
 class Urls {
   static const String baseUrl =
-      'https://g5-flutter-learning-path-be.onrender.com/api/v1/products';
+      'https://g5-flutter-learning-path-be.onrender.com/api/v2/products';
 
   static String getProductbyId(String id) => '$baseUrl/$id';
   static List<Product> allProducts = [];
