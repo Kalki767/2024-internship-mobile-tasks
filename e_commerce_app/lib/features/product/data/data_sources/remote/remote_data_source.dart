@@ -116,7 +116,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     if (response.statusCode == 200) {
       return true;
     } else {
-      return false;
+      throw ServerException();
     }
   }
 

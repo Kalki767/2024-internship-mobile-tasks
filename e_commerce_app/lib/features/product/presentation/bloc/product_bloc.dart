@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../core/constants/constants.dart';
+import '../../data/models/product_model.dart';
 import '../../domain/entities/product.dart';
 import '../../domain/usecases/delete_product.dart';
 import '../../domain/usecases/get_all_product.dart';

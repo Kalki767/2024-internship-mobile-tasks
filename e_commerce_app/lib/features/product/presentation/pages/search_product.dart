@@ -25,6 +25,7 @@ class _SearchProductState extends State<SearchProduct> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
+            context.read<ProductBloc>().add(LoadAllProductEvent());
             Navigator.of(context).pop();
           },
         ),

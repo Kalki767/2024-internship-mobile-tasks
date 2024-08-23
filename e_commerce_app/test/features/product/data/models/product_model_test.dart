@@ -20,7 +20,7 @@ void main() {
 
   test('should map correctly', () async {
     final Map<String, dynamic> jsonMap =
-        json.decode(readJson('helpers/fixtures/product_model.json'));
+        json.decode(readJson('features/product/helpers/product_model.json'));
     final result = ProductModel.fromJson(jsonMap);
     expect(result, equals(productModel));
   });
@@ -28,7 +28,7 @@ void main() {
   test('should map tojson correctly', () async {
     final result = productModel.toJson();
     final expectedMap = {
-      'productid': '6672776eb905525c145fe0bb',
+      'id': '6672776eb905525c145fe0bb',
       'name': 'Shoe',
       'description': 'Leather Shoe',
       'price': 200,

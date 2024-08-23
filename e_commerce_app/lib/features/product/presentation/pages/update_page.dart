@@ -181,11 +181,7 @@ class _UpdatePageState extends State<UpdatePage> {
                           content: Text(
                               'You have succesfully updated your product')));
 
-                      context.read<ProductBloc>().add(LoadAllProductEvent());
-                      Navigator.pushNamed(
-                        context,
-                        '/',
-                      );
+                      Navigator.pop(context);
                     } else if (state is ErrorState) {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text(state.message)));

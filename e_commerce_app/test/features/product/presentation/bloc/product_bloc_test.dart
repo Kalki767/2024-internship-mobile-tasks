@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app/core/errors/failures.dart';
+import 'package:e_commerce_app/features/product/data/models/product_model.dart';
 import 'package:e_commerce_app/features/product/domain/entities/product.dart';
 import 'package:e_commerce_app/features/product/presentation/bloc/product_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -36,6 +37,13 @@ void main() {
       description: 'Leather Shoe',
       price: 200,
       imageUrl: '');
+
+  const productModel = ProductModel(
+      productid: '6672776eb905525c145fe0bb',
+      name: 'Shoe',
+      description: 'Leather Shoe',
+      price: 200,
+      imageUrl: '');
   const productid = '6672776eb905525c145fe0bb';
 
   test('initial state should be empty', () {
@@ -56,14 +64,14 @@ void main() {
   blocTest<ProductBloc, ProductBlocState>(
       'should emit error when data is not gotten successfully',
       build: () {
-        when(mockGetProductUseCase.execute(productid))
-            .thenAnswer((_) async => const Left(ServerFailure('Error occurs')));
+        when(mockGetProductUseCase.execute(productid)).thenAnswer(
+            (_) async => const Left(ServerFailure('an error happens')));
         return productBloc;
       },
       act: (bloc) => bloc.add(const GetSingleProductEvent(productid)),
       wait: const Duration(milliseconds: 500),
       expect: () =>
-          [LoadingState(), const ErrorState(message: 'Error occurs')]);
+          [LoadingState(), const ErrorState(message: 'an error happens')]);
 
   blocTest<ProductBloc, ProductBlocState>(
       'should emit [Loading state, LoadedAllProducts] when all products are fetched successfully',
@@ -83,13 +91,13 @@ void main() {
       'should emit error when all product are not fetched',
       build: () {
         when(mockGetAllProductUseCase.execute()).thenAnswer(
-            (_) async => const Left(ServerFailure('Error occured')));
+            (_) async => const Left(ServerFailure('an error happens')));
         return productBloc;
       },
       act: (bloc) => bloc.add(LoadAllProductEvent()),
       wait: const Duration(milliseconds: 500),
       expect: () =>
-          [LoadingState(), const ErrorState(message: 'Error occured')]);
+          [LoadingState(), const ErrorState(message: 'an error happens')]);
 
   blocTest<ProductBloc, ProductBlocState>(
       'should emit true when a product is succesfully inserted',

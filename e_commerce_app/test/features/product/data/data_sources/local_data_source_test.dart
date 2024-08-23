@@ -22,7 +22,7 @@ void main() {
         () async {
       //arrange
       when(mockSharedPreferences.getString(any))
-          .thenReturn(readJson('helpers/fixtures/product_model.json'));
+          .thenReturn(readJson('features/product/helpers/product_model.json'));
 
       //act
       final result = await localDataSourceImpl.getProduct();

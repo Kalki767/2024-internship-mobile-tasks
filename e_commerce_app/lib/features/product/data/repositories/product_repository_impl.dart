@@ -7,6 +7,7 @@ import '../../../auth/data/data_sources/local_datasource.dart';
 import '../../domain/entities/product.dart';
 import '../../domain/repositories/product_repository.dart';
 import '../data_sources/remote/remote_data_source.dart';
+import '../models/product_model.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
   final RemoteDataSource _remoteDataSource;
@@ -38,7 +39,7 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<Either<Failure, Product>> getProduct(String productid) async {
     try {
       final token = await _userLocalDataSource.getAcessToken();
-      final result = await _remoteDataSource.getProductById(productid,token!);
+      final result = await _remoteDataSource.getProductById(productid, token!);
       return Right(result.toEntity());
     } on ServerException {
       return const Left(ServerFailure('An error has occurred'));
@@ -51,7 +52,7 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<Either<Failure, bool>> insertProduct(Product product) async {
     try {
       final token = await _userLocalDataSource.getAcessToken();
-      final result = await _remoteDataSource.insertProduct(product,token!);
+      final result = await _remoteDataSource.insertProduct(product, token!);
       return Right(result);
     } on ServerException {
       return const Left(ServerFailure('An error has occurred'));
@@ -65,7 +66,8 @@ class ProductRepositoryImpl implements ProductRepository {
       String productid, Product product) async {
     try {
       final token = await _userLocalDataSource.getAcessToken();
-      final result = await _remoteDataSource.updateProduct(productid, product,token!);
+      final result =
+          await _remoteDataSource.updateProduct(productid, product, token!);
       return Right(result);
     } on ServerException {
       return const Left(ServerFailure('An error has occurred'));
